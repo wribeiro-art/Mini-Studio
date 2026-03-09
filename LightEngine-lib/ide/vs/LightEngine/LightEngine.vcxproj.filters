@@ -2,15 +2,15 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
     <ItemGroup>
         <Filter Include="header">
-            <UniqueIdentifier>{D4DAD5CF-9A08-4921-811D-710643977B10}</UniqueIdentifier>
+            <UniqueIdentifier>{F122A36B-95E4-4101-8B89-D9B3AFBB0006}</UniqueIdentifier>
             <Extensions>h;hpp</Extensions>
         </Filter>
         <Filter Include="resource">
-            <UniqueIdentifier>{0166B441-A923-46AD-9FF0-6F5E11F830B1}</UniqueIdentifier>
+            <UniqueIdentifier>{F1CE7918-A8C6-41A3-AA71-85F9C6DA08B6}</UniqueIdentifier>
             <Extensions>hlsl;jpg;jpeg;png;wav;mp3;ico;dds;rc;obj</Extensions>
         </Filter>
         <Filter Include="source">
-            <UniqueIdentifier>{7E3B10A8-286D-4606-9FA5-C23458AE8CCE}</UniqueIdentifier>
+            <UniqueIdentifier>{D50786BF-2D05-4CEA-9FF7-1BBBD8518260}</UniqueIdentifier>
             <Extensions>cpp;c</Extensions>
         </Filter>
     </ItemGroup>
@@ -30,6 +30,9 @@
         <ClCompile Include="..\..\..\src\LightEngine\Scene.cpp">
             <Filter>source</Filter>
         </ClCompile>
+        <ClCompile Include="..\..\..\src\LightEngine\StaticEntity.cpp">
+            <Filter>source</Filter>
+        </ClCompile>
         <ClCompile Include="..\..\..\src\LightEngine\Utils.cpp">
             <Filter>source</Filter>
         </ClCompile>
@@ -46,6 +49,9 @@
             <Filter>header</Filter>
         </ClInclude>
         <ClInclude Include="..\..\..\src\LightEngine\Scene.h">
+            <Filter>header</Filter>
+        </ClInclude>
+        <ClInclude Include="..\..\..\src\LightEngine\StaticEntity.h">
             <Filter>header</Filter>
         </ClInclude>
         <ClInclude Include="..\..\..\src\LightEngine\Utils.h">

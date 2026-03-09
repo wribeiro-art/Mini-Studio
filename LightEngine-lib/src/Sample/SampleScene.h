@@ -1,23 +1,17 @@
 #pragma once
-
 #include "Scene.h"
 
-class DummyEntity;
+class PhysicalEntity;
+
+class StaticEntity;
 
 class SampleScene : public Scene
 {
-	DummyEntity* pEntity1;
-	DummyEntity* pEntity2;
-
-	DummyEntity* pEntitySelected;
-
-private:
-	void TrySetSelectedEntity(DummyEntity* pEntity, int x, int y);
+    PhysicalEntity* Ball;
+    StaticEntity* Wall;
 
 public:
-	void OnInitialize() override;
-	void OnEvent(const sf::Event& event) override;
-	void OnUpdate() override;
+    void OnInitialize() override;
+    void OnEvent(const sf::Event& event) override;
+    void OnUpdate() override;
 };
-
-
