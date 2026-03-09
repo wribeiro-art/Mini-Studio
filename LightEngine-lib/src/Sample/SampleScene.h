@@ -15,9 +15,13 @@ private:
 	void TrySetSelectedEntity(DummyEntity* pEntity, int x, int y);
 
 public:
+	int currentbutton = 0;
+
 	void OnInitialize() override;
 	void OnEvent(const sf::Event& event) override;
 	void OnUpdate() override;
+
+	int GetButtonPressed();
 };
 
 
