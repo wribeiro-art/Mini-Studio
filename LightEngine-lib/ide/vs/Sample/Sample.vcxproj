@@ -13,7 +13,7 @@
     <PropertyGroup Label="Globals">
         <VCProjectVersion>17.0</VCProjectVersion>
         <Keyword>Win32Proj</Keyword>
-        <ProjectGuid>{7C20B7BE-F604-42DE-B6E0-8CCC40ACA6B7}</ProjectGuid>
+        <ProjectGuid>{CD4A2A1D-D900-408A-8B9C-B36A555EF1D3}</ProjectGuid>
         <RootNamespace>Sample</RootNamespace>
         <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     </PropertyGroup>
@@ -98,12 +98,13 @@
         <ClCompile Include="..\..\..\src\Sample\main.cpp"/>
         <ClCompile Include="..\..\..\src\Sample\Player.cpp"/>
         <ClCompile Include="..\..\..\src\Sample\SampleScene.cpp"/>
+        <ClCompile Include="..\..\..\src\Sample\StateMachine.cpp"/>
     </ItemGroup>
     <ItemGroup>
         <ClInclude Include="..\..\..\src\Sample\DummyEntity.h"/>
         <ClInclude Include="..\..\..\src\Sample\Player.h"/>
-        <ClInclude Include="..\..\..\src\Sample\PlayerController.h"/>
         <ClInclude Include="..\..\..\src\Sample\SampleScene.h"/>
+        <ClInclude Include="..\..\..\src\Sample\StateMachine.h"/>
     </ItemGroup>
     <ItemGroup/>
     <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>

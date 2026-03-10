@@ -2,15 +2,15 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
     <ItemGroup>
         <Filter Include="header">
-            <UniqueIdentifier>{F445D663-3C7B-4BEA-9785-F631757E76DA}</UniqueIdentifier>
+            <UniqueIdentifier>{B026CFDC-9ED3-40B2-A66B-7F36005C39F0}</UniqueIdentifier>
             <Extensions>h;hpp</Extensions>
         </Filter>
         <Filter Include="resource">
-            <UniqueIdentifier>{3C36A14C-D167-466D-88D0-07AD5787B6BE}</UniqueIdentifier>
+            <UniqueIdentifier>{CD327ECD-C8BB-4D75-AE8A-AB8931F3DBB7}</UniqueIdentifier>
             <Extensions>hlsl;jpg;jpeg;png;wav;mp3;ico;dds;rc;obj</Extensions>
         </Filter>
         <Filter Include="source">
-            <UniqueIdentifier>{D6F5DB24-796D-428F-AC6E-D4ADE7745DBF}</UniqueIdentifier>
+            <UniqueIdentifier>{5227619F-EED6-43CC-A6DC-3EB9DFE537F6}</UniqueIdentifier>
             <Extensions>cpp;c</Extensions>
         </Filter>
     </ItemGroup>
@@ -27,16 +27,19 @@
         <ClCompile Include="..\..\..\src\Sample\SampleScene.cpp">
             <Filter>source</Filter>
         </ClCompile>
+        <ClCompile Include="..\..\..\src\Sample\StateMachine.cpp">
+            <Filter>source</Filter>
+        </ClCompile>
         <ClInclude Include="..\..\..\src\Sample\DummyEntity.h">
             <Filter>header</Filter>
         </ClInclude>
         <ClInclude Include="..\..\..\src\Sample\Player.h">
             <Filter>header</Filter>
         </ClInclude>
-        <ClInclude Include="..\..\..\src\Sample\PlayerController.h">
+        <ClInclude Include="..\..\..\src\Sample\SampleScene.h">
             <Filter>header</Filter>
         </ClInclude>
-        <ClInclude Include="..\..\..\src\Sample\SampleScene.h">
+        <ClInclude Include="..\..\..\src\Sample\StateMachine.h">
             <Filter>header</Filter>
         </ClInclude>
     </ItemGroup>
