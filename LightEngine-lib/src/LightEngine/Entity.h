@@ -3,6 +3,8 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
 
+#include "Collider.h"
+
 namespace sf 
 {
 	class Shape;
@@ -27,7 +29,8 @@ protected:
     float mSpeed = 0.f;
     bool mToDestroy = false;
     int mTag = -1;
-	bool mRigidBody = false; 
+	bool mRigidBody = false;
+    Collider mCollider;
 
 public:
 	bool GoToDirection(int x, int y, float speed = -1.f);

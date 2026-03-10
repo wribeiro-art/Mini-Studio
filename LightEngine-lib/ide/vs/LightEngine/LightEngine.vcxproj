@@ -94,6 +94,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\LightEngine\Collider.cpp" />
     <ClCompile Include="..\..\..\src\LightEngine\Debug.cpp" />
     <ClCompile Include="..\..\..\src\LightEngine\Entity.cpp" />
     <ClCompile Include="..\..\..\src\LightEngine\GameManager.cpp" />
@@ -102,6 +103,7 @@
     <ClCompile Include="..\..\..\src\LightEngine\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\LightEngine\Collider.h" />
     <ClInclude Include="..\..\..\src\LightEngine\Debug.h" />
     <ClInclude Include="..\..\..\src\LightEngine\Entity.h" />
     <ClInclude Include="..\..\..\src\LightEngine\GameManager.h" />

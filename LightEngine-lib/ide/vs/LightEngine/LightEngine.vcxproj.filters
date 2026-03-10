@@ -51,5 +51,13 @@
     <ClInclude Include="..\..\..\src\LightEngine\Utils.h">
       <Filter>header</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\..\src\LightEngine\Collider.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\LightEngine\Collider.h">
+      <Filter>header</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
