@@ -2,15 +2,15 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
     <ItemGroup>
         <Filter Include="header">
-            <UniqueIdentifier>{4D4A13C1-E715-45D7-910E-EDF8AB2508D1}</UniqueIdentifier>
+            <UniqueIdentifier>{1B8F8122-09B5-4D78-B0DD-E4941E42F064}</UniqueIdentifier>
             <Extensions>h;hpp</Extensions>
         </Filter>
         <Filter Include="resource">
-            <UniqueIdentifier>{95439915-CB14-43D8-87C1-9CCD4B473D94}</UniqueIdentifier>
+            <UniqueIdentifier>{FF96F6FB-0F63-4931-BB29-ABBB5C854FF7}</UniqueIdentifier>
             <Extensions>hlsl;jpg;jpeg;png;wav;mp3;ico;dds;rc;obj</Extensions>
         </Filter>
         <Filter Include="source">
-            <UniqueIdentifier>{C9EC3F19-7C81-4394-91D8-66D4723CF7A1}</UniqueIdentifier>
+            <UniqueIdentifier>{ECBF3CE9-83F9-4ED8-AA19-7FCA21D26453}</UniqueIdentifier>
             <Extensions>cpp;c</Extensions>
         </Filter>
     </ItemGroup>
@@ -22,6 +22,9 @@
             <Filter>source</Filter>
         </ClCompile>
         <ClCompile Include="..\..\..\src\LightEngine\GameManager.cpp">
+            <Filter>source</Filter>
+        </ClCompile>
+        <ClCompile Include="..\..\..\src\LightEngine\PhysicalEntity.cpp">
             <Filter>source</Filter>
         </ClCompile>
         <ClCompile Include="..\..\..\src\LightEngine\Scene.cpp">
@@ -37,6 +40,9 @@
             <Filter>header</Filter>
         </ClInclude>
         <ClInclude Include="..\..\..\src\LightEngine\GameManager.h">
+            <Filter>header</Filter>
+        </ClInclude>
+        <ClInclude Include="..\..\..\src\LightEngine\PhysicalEntity.h">
             <Filter>header</Filter>
         </ClInclude>
         <ClInclude Include="..\..\..\src\LightEngine\Scene.h">
