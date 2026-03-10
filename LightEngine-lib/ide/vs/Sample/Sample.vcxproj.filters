@@ -2,15 +2,15 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
     <ItemGroup>
         <Filter Include="header">
-            <UniqueIdentifier>{F7763F8F-D01D-4BF0-B4ED-368901FA8E16}</UniqueIdentifier>
+            <UniqueIdentifier>{F445D663-3C7B-4BEA-9785-F631757E76DA}</UniqueIdentifier>
             <Extensions>h;hpp</Extensions>
         </Filter>
         <Filter Include="resource">
-            <UniqueIdentifier>{E7893779-509C-438A-903E-7279C9FA5B58}</UniqueIdentifier>
+            <UniqueIdentifier>{3C36A14C-D167-466D-88D0-07AD5787B6BE}</UniqueIdentifier>
             <Extensions>hlsl;jpg;jpeg;png;wav;mp3;ico;dds;rc;obj</Extensions>
         </Filter>
         <Filter Include="source">
-            <UniqueIdentifier>{DD10CC80-B1EE-4195-B505-F03068FC1850}</UniqueIdentifier>
+            <UniqueIdentifier>{D6F5DB24-796D-428F-AC6E-D4ADE7745DBF}</UniqueIdentifier>
             <Extensions>cpp;c</Extensions>
         </Filter>
     </ItemGroup>
@@ -31,6 +31,9 @@
             <Filter>header</Filter>
         </ClInclude>
         <ClInclude Include="..\..\..\src\Sample\Player.h">
+            <Filter>header</Filter>
+        </ClInclude>
+        <ClInclude Include="..\..\..\src\Sample\PlayerController.h">
             <Filter>header</Filter>
         </ClInclude>
         <ClInclude Include="..\..\..\src\Sample\SampleScene.h">

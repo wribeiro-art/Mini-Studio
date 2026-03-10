@@ -45,3 +45,13 @@ void Player::OnCollision(Entity* collidedWith)
 	}
 
 }
+
+void Player::TakeDamage(int damage)
+{
+	mHealth -= damage;
+}
+
+void Player::Heal(int heal)
+{
+	mHealth += heal;
+}
