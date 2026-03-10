@@ -62,17 +62,21 @@
 #include "SampleScene.h"
 #include "PhysicalEntity.h"
 #include "StaticEntity.h"
+#include "Player.h"
+#include "PlayerController.h"
 #include "Debug.h"
 
 void SampleScene::OnInitialize()
 {
     // Physic
-    Ball = CreateEntity<PhysicalEntity>(30.f, sf::Color::Red);
+    Ball = CreateEntity<Player>(30.f, sf::Color::Red);
     Ball->SetPosition(400.f, 100.f);
+    Ball->SetTag(1);
 
     // Static
     Wall = CreateEntity<StaticEntity>(100.f, sf::Color::Blue);
     Wall->SetPosition(350.f, 400.f);
+    Wall->SetTag(2);
 }
 
 void SampleScene::OnEvent(const sf::Event& event)
@@ -80,7 +84,27 @@ void SampleScene::OnEvent(const sf::Event& event)
     // Jump sur espace
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space)
     {
-        Ball->ApplyImpulse(-1000.f);
+        Ball->ApplyImpulse(-100.f);
+    }
+
+    if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::D)
+    {
+        Ball->MoveX(GetDeltaTime(), 1.0f);
+    }
+
+    if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Q)
+    {
+        Ball->MoveX(GetDeltaTime(), -1.0f);
+    }
+
+    if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::D)
+    {
+        Ball->SetSpeed(0.f);
+    }
+
+    if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Q)
+    {
+        Ball->SetSpeed(0.f);
     }
 
     // Toggle mur avec E

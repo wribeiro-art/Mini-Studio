@@ -1,4 +1,5 @@
 #include "PhysicalEntity.h"
+#include <iostream>
 
 //void PhysicalEntity::Fall(float deltatime)
 //{
@@ -31,6 +32,9 @@ void PhysicalEntity::Update()
 {
     float dt = GetDeltaTime();
 
+   // std::cout << "x " << mVelocity.x << std::endl;
+  // std::cout << "y " << mGravitySpeed << std::endl;
+
     mGravitySpeed += mGravityAcceleration * dt;
 
     sf::Vector2f pos = GetPosition(0.5f, 0.5f);
@@ -41,4 +45,5 @@ void PhysicalEntity::Update()
     SetPosition(pos.x, pos.y, 0.5f, 0.5f);
 
     Entity::Update();
+
 }

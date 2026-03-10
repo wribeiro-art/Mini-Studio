@@ -1,13 +1,13 @@
 #pragma once
 #include "Scene.h"
 
-class PhysicalEntity;
+class Player;
 
 class StaticEntity;
 
 class SampleScene : public Scene
 {
-    PhysicalEntity* Ball;
+    Player* Ball;
     StaticEntity* Wall;
 
 public:
