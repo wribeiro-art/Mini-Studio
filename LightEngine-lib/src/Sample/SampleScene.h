@@ -3,16 +3,16 @@
 #include "Scene.h"
 
 class DummyEntity;
+class PhysicalEntity;
+class StaticEntity;
 
 class SampleScene : public Scene
 {
-	DummyEntity* pEntity1;
-	DummyEntity* pEntity2;
-
-	DummyEntity* pEntitySelected;
+	PhysicalEntity* Ball;
+	StaticEntity* Wall;
 
 private:
-	void TrySetSelectedEntity(DummyEntity* pEntity, int x, int y);
+
 
 public:
 	int currentbutton = 0;
@@ -22,6 +22,8 @@ public:
 	void OnUpdate() override;
 
 	int GetButtonPressed();
+	float ReturnJoystickValueX();
+	float ReturnJoystickValueY();
 };
 
 

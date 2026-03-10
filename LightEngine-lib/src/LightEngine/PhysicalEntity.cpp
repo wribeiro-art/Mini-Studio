@@ -1,5 +1,5 @@
 #include "PhysicalEntity.h"
-
+#include <iostream>
 //void PhysicalEntity::Fall(float deltatime)
 //{
 //	mGravitySpeed += GravityAcceleration * deltatime;

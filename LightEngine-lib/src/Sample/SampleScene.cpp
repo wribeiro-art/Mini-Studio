@@ -1,22 +1,16 @@
 #include "SampleScene.h"
-
 #include "DummyEntity.h"
-
+#include "PhysicalEntity.h"
+#include "StaticEntity.h"
 #include "Debug.h"
 
 #include <iostream>
 
 void SampleScene::OnInitialize()
 {
-	pEntity1 = CreateEntity<DummyEntity>(100, sf::Color::Red);
-	pEntity1->SetPosition(100, 100);
-	pEntity1->SetRigidBody(true);
+	Ball = CreateEntity<PhysicalEntity>(30.f, sf::Color::Red);
+	Ball->SetPosition(400.f, 100.f);
 
-	pEntity2 = CreateEntity<DummyEntity>(50, sf::Color::Green);
-	pEntity2->SetPosition(500, 500);
-	pEntity2->SetRigidBody(true);
-
-	pEntitySelected = nullptr;
 
 	for (int i = 0; i < 8; ++i)
 	{
@@ -45,21 +39,8 @@ void SampleScene::OnEvent(const sf::Event& event)
 		std::cout << "Current button: " << currentbutton << std::endl;
 	}
 
-
-	if (event.mouseButton.button == sf::Mouse::Button::Right)
-	{
-		TrySetSelectedEntity(pEntity1, event.mouseButton.x, event.mouseButton.y);
-		TrySetSelectedEntity(pEntity2, event.mouseButton.x, event.mouseButton.y);
-	}
 }
 
-void SampleScene::TrySetSelectedEntity(DummyEntity* pEntity, int x, int y)
-{
-	if (pEntity->IsInside(x, y) == false)
-		return;
-
-	pEntitySelected = pEntity;
-}
 
 void SampleScene::OnUpdate()
 {
@@ -69,47 +50,47 @@ void SampleScene::OnUpdate()
 			std::cout << "Joystick " << GetButtonPressed() << " is pressed" << std::endl;
 		}
 
+	//GetAxis
 	{
-		if (!pEntitySelected)
-			return;
+
+		if (sf::Joystick::isButtonPressed(0, 4))
+		{
+			std::cout << "Joystick posX Value : " << ReturnJoystickValueX() << std::endl;
+		}
+
+		if (sf::Joystick::isButtonPressed(0, 5))
+		{
+			std::cout << "Joystick posY Value : " << ReturnJoystickValueY() << std::endl;
+		}
 
 
+	}
 
 		if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) > 70)
 		{
-			pEntitySelected->SetPosition(pEntitySelected->GetPosition().x + 1, pEntitySelected->GetPosition().y);
+			Ball->SetPosition(Ball->GetPosition().x + 1, Ball->GetPosition().y);
 		
 		}
 		else if (sf::Joystick::getAxisPosition(0, sf::Joystick::X) < -70)
 		{
-			pEntitySelected->SetPosition(pEntitySelected->GetPosition().x - 1, pEntitySelected->GetPosition().y);
+			Ball->SetPosition(Ball->GetPosition().x - 1, Ball->GetPosition().y);
 	
 		}
 
-		
-		if (sf::Joystick::getAxisPosition(0, sf::Joystick::Y) < -50)
+		if (sf::Joystick::isButtonPressed(0, 0))//a changer mais en gros ça marche
 		{
-			pEntitySelected->
+			if (Ball->GetPosition().y > 490)
+			{
+				Ball->ApplyImpulse(-100.f);
+			}
 		}
-		
-		if (sf::Joystick::isButtonPressed(0, 0))
-		{
-			std::cout << "Big saut trop bien animer et tt ouais" << std::endl;
-		}
-
-		else if (sf::Joystick::isButtonPressed(0, 1))
-		{
-			pEntitySelected->SetPosition(pEntitySelected->GetPosition().x, pEntitySelected->GetPosition().y + 1);
-		}
-
-	}
 	
+		if (Ball->GetPosition().y > 500)
+		{
+			Ball->SetGravitySpeed(-100.f);
+		}
 
-	if(pEntitySelected != nullptr)
-	{
-		sf::Vector2f position = pEntitySelected->GetPosition();
-		Debug::DrawCircle(position.x, position.y, 10, sf::Color::Blue);
-	}
+	Debug::DrawCircle(Ball->GetPosition().x, Ball->GetPosition().y, 10.f, sf::Color::Cyan);
 }
 
 int SampleScene::GetButtonPressed()
@@ -122,4 +103,24 @@ int SampleScene::GetButtonPressed()
 		}
 	}
 	return 31;
+}
+
+float SampleScene::ReturnJoystickValueX()
+{
+	int value = sf::Joystick::getAxisPosition(0, sf::Joystick::X);
+
+	if (value <= 0 && value >= -10 || value >= 0 && value <= 10)
+		return 0.f;
+
+	return value / 100.f;
+}
+
+float SampleScene::ReturnJoystickValueY()
+{
+	int value = sf::Joystick::getAxisPosition(0, sf::Joystick::Y);
+
+	if (value <= 0 && value >= -10 || value >= 0 && value <= 10)
+		return 0.f;
+
+	return value / 100.f;
 }
