@@ -1,29 +1,17 @@
 #pragma once
-
 #include "Scene.h"
 
-class DummyEntity;
 class PhysicalEntity;
-class StaticEntity;
+
+class Entity;
 
 class SampleScene : public Scene
 {
-	PhysicalEntity* Ball;
-	StaticEntity* Wall;
-
-private:
-
+    PhysicalEntity* Ball;
+    Entity* Wall;
 
 public:
-	int currentbutton = 0;
-
-	void OnInitialize() override;
-	void OnEvent(const sf::Event& event) override;
-	void OnUpdate() override;
-
-	int GetButtonPressed();
-	float ReturnJoystickValueX();
-	float ReturnJoystickValueY();
+    void OnInitialize() override;
+    void OnEvent(const sf::Event& event) override;
+    void OnUpdate() override;
 };
-
-
