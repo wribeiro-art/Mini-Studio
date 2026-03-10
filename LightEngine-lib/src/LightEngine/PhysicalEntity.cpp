@@ -37,6 +37,31 @@ void PhysicalEntity::ApplyImpulse(const float y, const float x)
 	ApplyImpulse({ x, y });
 }
 
+void PhysicalEntity::Repulse(Entity* other)
+{
+	int hit = GetCollisionFace(other);
+	if (hit == -1)
+		return;
+
+	sf::Vector2f pos = GetPosition(0.5f, 0.5f);
+
+	switch (hit)
+	{
+	case 0:
+		pos.y = other->GetCollider()->GetYMin() - (mCollider.GetYMax() - mCollider.GetYMin());
+		break;
+	case 1:
+		pos.x = other->GetCollider()->GetXMax(); break;
+	case 2:
+		pos.y = other->GetCollider()->GetYMax(); break;
+	case 3:
+		pos.x = other->GetCollider()->GetXMin() - (mCollider.GetXMax() - mCollider.GetXMin());
+		break;
+	}
+
+	SetPosition(pos.x, pos.y, 0.5f, 0.5f);
+}
+
 void PhysicalEntity::Update()
 {
     float dt = GetDeltaTime();

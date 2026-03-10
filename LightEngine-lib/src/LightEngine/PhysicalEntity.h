@@ -26,4 +26,6 @@ public:
 
     void ApplyImpulse(const sf::Vector2f& impulse);
     void ApplyImpulse(const float y, const float x = 0);
+
+    virtual void Repulse(Entity* other) override;
 };

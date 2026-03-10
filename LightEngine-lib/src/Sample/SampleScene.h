@@ -1,14 +1,19 @@
 #pragma once
 #include "Scene.h"
-
-class PhysicalEntity;
+#include "PhysicalEntity.h"
 
 class Entity;
 
+class Ball : public PhysicalEntity
+{
+public:
+    void OnCollision(Entity* other) override;
+};
+
 class SampleScene : public Scene
 {
-    PhysicalEntity* Ball;
-    Entity* Wall;
+    Ball* ball;
+    Entity* wall;
 
 public:
     void OnInitialize() override;

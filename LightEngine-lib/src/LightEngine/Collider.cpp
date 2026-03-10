@@ -7,3 +7,11 @@ bool Collider::IsColliding(const Collider& c1, const Collider& c2)
             c1.mYMin <= c2.mYMax &&
             c1.mYMax >= c2.mYMin);
 }
+
+void Collider::Set(float xMin, float yMin, float xMax, float yMax)
+{
+    mXMin = xMin;
+    mYMin = yMin;
+    mXMax = xMax;
+    mYMax = yMax;
+}

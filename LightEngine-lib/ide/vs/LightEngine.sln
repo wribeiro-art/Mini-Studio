@@ -1,20 +1,13 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30319.14
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11415.281 d18.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LightEngine", "LightEngine\LightEngine.vcxproj", "{1DAC49E6-499D-4AA4-A552-D2C170723D99}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sample", "Sample\Sample.vcxproj", "{75C406C5-397F-4E37-8AF0-4DABE1812EA8}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
-		Release|x64 = Release|x64
 		Debug|x64 = Debug|x64
 		Release|x64 = Release|x64
 	EndGlobalSection
@@ -31,9 +24,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {B66B3447-B9AD-4B6C-B984-A32352F2C7BE}
+		SolutionGuid = {85F30B62-0DAA-4800-9346-058A84B113C7}
 	EndGlobalSection
 EndGlobal
