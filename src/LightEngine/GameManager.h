@@ -1,7 +1,8 @@
 #pragma once
 
-#include <list>
+#define FIXED_DT 0.01667f
 
+#include <list>
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Text.hpp>
 
@@ -9,7 +10,7 @@ class Entity;
 class Scene;
 class Debug;
 
-namespace sf 
+namespace sf
 {
 	class RenderWindow;
 	class Event;
@@ -27,6 +28,7 @@ class GameManager
 	Scene* mpScene;
 
 	float mDeltaTime;
+	float mAccumulatedDt = 0.f;
 
 	int mWindowWidth;
 	int mWindowHeight;
@@ -37,14 +39,14 @@ private:
 	GameManager();
 
 	void Run();
-	
+
 	void HandleInput();
 	void Update();
+	void FixedUpdate();
 	void Draw();
 
 	void SetDeltaTime(float deltaTime) { mDeltaTime = deltaTime; }
 
-	sf::RenderWindow* GetWindow() const { return mpWindow; }
 
 public:
 	~GameManager();
@@ -58,6 +60,7 @@ public:
 	float GetDeltaTime() const { return mDeltaTime; }
 	Scene* GetScene() const { return mpScene; }
 	sf::Font& GetFont() { return mFont; };
+	sf::RenderWindow* GetWindow() const { return mpWindow; }
 
 	friend Debug;
 	friend Scene;

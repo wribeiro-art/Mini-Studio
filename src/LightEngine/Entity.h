@@ -27,7 +27,7 @@ protected:
     float mSpeed = 0.f;
     bool mToDestroy = false;
     int mTag = -1;
-	bool mRigidBody = false;
+	bool mRigidBody = false; // A déplacer ?
 
 public:
 	bool GoToDirection(int x, int y, float speed = -1.f);
@@ -37,8 +37,8 @@ public:
 	void SetSpeed(float speed) { mSpeed = speed; }
 	void SetTag(int tag) { mTag = tag; }
 	float GetRadius() const { return mShape.getRadius(); }
-	void SetRigidBody(bool isRigitBody) { mRigidBody = isRigitBody; }
-	bool IsRigidBody() const { return mRigidBody; }
+	void SetRigidBody(bool isRigitBody) { mRigidBody = isRigitBody; } // Idem ?
+	bool IsRigidBody() const { return mRigidBody; } // Idem ?
 
     sf::Vector2f GetPosition(float ratioX = 0.5f, float ratioY = 0.5f) const;
 	sf::Shape* GetShape() { return &mShape; }
@@ -67,9 +67,11 @@ protected:
     virtual void OnCollision(Entity* collidedWith) {};
 	virtual void OnInitialize() {};
 	virtual void OnDestroy() {};
+    //virtual void Update(); Move dans protected
+    virtual void Update();
+    virtual void FixedUpdate(float Fix_DT) {};
 	
 private:
-    void Update();
 	void Initialize(float radius, const sf::Color& color);
 	void Repulse(Entity* other);
 
