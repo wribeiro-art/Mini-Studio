@@ -1,25 +1,35 @@
 #include "PhysicalEntity.h"
 
-//void PhysicalEntity::Fall(float deltatime)
-//{
-//	mGravitySpeed += GravityAcceleration * deltatime;
-//	mPosition.y += mGravitySpeed * deltatime;
-//}
-
 void PhysicalEntity::SetGravityAcceleration(float gravity)
 {
 	mGravityAcceleration = gravity;
 }
 
-void PhysicalEntity::SetGravitySpeed(float speed)
+void PhysicalEntity::SetFrictionAir(float frictionAir)
 {
-	mGravitySpeed = speed;
+    mFrictionAir = frictionAir;
+}
+
+void PhysicalEntity::ResetVelocity()
+{
+    mVelocity = { 0, 0 };
+}
+
+void PhysicalEntity::EnableGravity()
+{
+    ResetVelocity();
+    mGravityOn = true;
+}
+
+void PhysicalEntity::DisableGravity()
+{
+    mGravityOn = false;
 }
 
 void PhysicalEntity::ApplyImpulse(const sf::Vector2f& impulse)
 {
-	mGravitySpeed += impulse.y;  
-	mVelocity.x += impulse.x; // Pas nécessaire   
+	mVelocity.y += impulse.y;  
+	mVelocity.x += impulse.x;  
 }
 
 void PhysicalEntity::ApplyImpulse(const float y, const float x)
@@ -31,12 +41,19 @@ void PhysicalEntity::Update()
 {
     float dt = GetDeltaTime();
 
-    mGravitySpeed += mGravityAcceleration * dt;
+    if (mGravityOn == false)
+        return;
+
+    mVelocity.y += mGravityAcceleration * dt;
+    
+    // Friction air. TODO ajouter friction sol
+
+    mVelocity.x -= mVelocity.x * mFrictionAir * dt;
 
     sf::Vector2f pos = GetPosition(0.5f, 0.5f);
 
     pos.x += mVelocity.x * dt;
-    pos.y += mGravitySpeed * dt;
+    pos.y += mVelocity.y * dt;
     
     SetPosition(pos.x, pos.y, 0.5f, 0.5f);
 

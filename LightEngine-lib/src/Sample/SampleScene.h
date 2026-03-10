@@ -3,12 +3,12 @@
 
 class PhysicalEntity;
 
-class StaticEntity;
+class Entity;
 
 class SampleScene : public Scene
 {
     PhysicalEntity* Ball;
-    StaticEntity* Wall;
+    Entity* Wall;
 
 public:
     void OnInitialize() override;
