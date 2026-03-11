@@ -1,13 +1,39 @@
 #include "AssetManager.h"
 
+
+//sf::Texture* AssetManager::LoadTexture(const char* path)
+//{
+//    sf::Texture* texture = new sf::Texture(path);
+//
+//}
+//
+//
+//
+//sf::Texture* AssetManager::GetTexture(const char* path)
+//{
+//    return nullptr;
+//}
+
+
+
+
+
+
+
+
+
+
 void AssetManager::LoadImage()
 {
-	if (!mTexture.loadFromFile("C:\\Users\\wribeiro\\Downloads\\Mini-Studio-main\\Mini-Studio-main\\LightEngine-lib\\Nikon-D810-Image-Sample-6.jpg"))
+	if (!mTexture.loadFromFile("C:\\Users\\wribeiro\\Downloads\\Mini-Studio-William\\Mini-Studio-William\\ai-generated-7483596_960_720.jpg"))
     {
-        std::cout << "Erreur chargement image" << std::endl;
+        std::cout << "chiant" << std::endl;
     }
-
-    mTexture.loadFromFile("C:\\Users\\wribeiro\\Downloads\\Mini-Studio-main\\Mini-Studio-main\\LightEngine-lib\\Nikon-D810-Image-Sample-6.jpg");
+    else
+    {
+        std::cout << "Image chargee !" << std::endl;
+    }
+    mTexture.loadFromFile("C:\\Users\\wribeiro\\Downloads\\Mini-Studio-William\\Mini-Studio-William\\ai-generated-7483596_960_720.jpg");
     mSprite.setTexture(mTexture);
     mSprite.setPosition(0, 0);
 }

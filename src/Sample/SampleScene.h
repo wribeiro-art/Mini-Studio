@@ -19,5 +19,5 @@ public:
     void OnInitialize() override;
     void OnEvent(const sf::Event& event) override;
     void OnUpdate() override;
-    void OnRender(sf::RenderWindow& window);
+    void OnRender(sf::RenderWindow& window) override;
 };

@@ -98,19 +98,6 @@ void SampleScene::OnEvent(const sf::Event& event)
 
     }
     std::cout << FIXED_DT<<std::endl;
-
-
-    GameManager::Get()->GetWindow()->clear();
-    GameManager::Get()->GetWindow()->draw(assetManager.GetSprite());
-    GameManager::Get()->GetWindow()->display();
-
-
-     
-
-
- /*   window.clear();
-    currentScene->OnRender(window);
-    window.display();*/
 }
 
 void SampleScene::OnUpdate()
@@ -121,5 +108,7 @@ void SampleScene::OnUpdate()
 
 void SampleScene::OnRender(sf::RenderWindow& window)
 {
+    GameManager::Get()->GetWindow()->clear();
+    GameManager::Get()->GetWindow()->draw(assetManager.GetSprite());
     window.draw(assetManager.GetSprite());
 }

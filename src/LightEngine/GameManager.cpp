@@ -173,6 +173,8 @@ void GameManager::Draw()
 	{
 		mpWindow->draw(*entity->GetShape());
 	}
+
+	mpScene->OnRender(*mpWindow);
 	
 	Debug::Get()->Draw(mpWindow);
 
