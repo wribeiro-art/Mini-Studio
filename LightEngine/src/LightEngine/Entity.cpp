@@ -7,7 +7,7 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
 
-void Entity::Initialize(float radius, const sf::Color& color)
+void Entity::InitializeCircle(float radius, const sf::Color& color)
 {
 	mDirection = sf::Vector2f(0.0f, 0.0f);
 
@@ -18,6 +18,13 @@ void Entity::Initialize(float radius, const sf::Color& color)
 	mTarget.isSet = false;
 
 	OnInitialize();
+}
+
+void Entity::InitializeRect(float xMin, float xMax, float yMin, float yMax, const sf::Color& color)
+{
+
+
+
 }
 
 void Entity::Repulse(Entity* other) 
@@ -51,6 +58,21 @@ bool Entity::IsColliding(Entity* other) const
 
 	float radius1 = mShape.getRadius();
 	float radius2 = other->mShape.getRadius();
+
+	float sqrRadius = (radius1 + radius2) * (radius1 + radius2);
+
+	return sqrLength < sqrRadius;
+}
+
+bool Entity::IsColliding(const RectCollider& c1, const RectCollider& c2) const
+{
+	float distanceX = (c1.xMax - c1.xMin) - (c2.xMax - c2.xMin);
+	float distanceY = (c1.yMax - c1.yMin) - (c2.yMax - c2.yMin);
+
+	float sqrLength = (distanceX * distanceX) + (distanceY * distanceY);
+
+	float radius1 = -c1.xMin + c1.xMax;
+	float radius2 = -c2.xMin + c2.xMax;
 
 	float sqrRadius = (radius1 + radius2) * (radius1 + radius2);
 

@@ -110,33 +110,52 @@ void GameManager::Update()
         it = mEntities.erase(it);
     }
 
-    //Collision
-    for (auto it1 = mEntities.begin(); it1 != mEntities.end(); ++it1)
-    {
-        auto it2 = it1;
-        ++it2;
-        for (; it2 != mEntities.end(); ++it2)
-        {
-            Entity* entity = *it1;
-            Entity* otherEntity = *it2;
+	mAccumulatedDt += mDeltaTime;
+	while (mAccumulatedDt >= FIXED_DT)
+	{
+		FixedUpdate();
+		mAccumulatedDt -= FIXED_DT;
+	}
 
-            if (entity->IsColliding(otherEntity))
-            {
+
+}
+
+void GameManager::FixedUpdate()
+{
+	//physic update 
+	for (Entity* entity : mEntities)
+	{
+		entity->FixedUpdate(FIXED_DT);
+	}
+	
+
+	//Collision
+	for (auto it1 = mEntities.begin(); it1 != mEntities.end(); ++it1)
+	{
+		auto it2 = it1;
+		++it2;
+		for (; it2 != mEntities.end(); ++it2)
+		{
+			Entity* entity = *it1;
+			Entity* otherEntity = *it2;
+
+			if (entity->IsColliding(otherEntity))
+			{
 				if (entity->IsRigidBody() && otherEntity->IsRigidBody())
 					entity->Repulse(otherEntity);
 
-                entity->OnCollision(otherEntity);
-                otherEntity->OnCollision(entity);
-            }
-        }
-    }
-
-	for (auto it = mEntitiesToDestroy.begin(); it != mEntitiesToDestroy.end(); ++it) 
-	{
-		delete *it;
+				entity->OnCollision(otherEntity);
+				otherEntity->OnCollision(entity);
+			}
+		}
 	}
 
-    mEntitiesToDestroy.clear();
+	for (auto it = mEntitiesToDestroy.begin(); it != mEntitiesToDestroy.end(); ++it)
+	{
+		delete* it;
+	}
+
+	mEntitiesToDestroy.clear();
 
 	for (auto it = mEntitiesToAdd.begin(); it != mEntitiesToAdd.end(); ++it)
 	{
@@ -154,6 +173,8 @@ void GameManager::Draw()
 	{
 		mpWindow->draw(*entity->GetShape());
 	}
+
+	mpScene->OnRender(*mpWindow);
 	
 	Debug::Get()->Draw(mpWindow);
 
