@@ -34,14 +34,14 @@ void Player::MoveX(float dt, float direction)
 
 void Player::OnCollision(Entity* collidedWith)
 {
-	std::cout << "Collided" << std::endl;
+
 
 	if (collidedWith->IsTag(1) || collidedWith->IsTag(4))
 		return;
 
 	if (collidedWith->IsTag(2)) //ennemi -> logique ennemi
 	{
-		std::cout << "eaoipfajf\n";
+		
 	}
 
 }

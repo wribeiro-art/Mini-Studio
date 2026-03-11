@@ -11,7 +11,7 @@ public:
 	Controller(int ID);
 	
 	bool IsConnected(int ID);
-	int ReturnPressedButton(int ID);
+	int ReturnPressedButton();
 	float ReturnJoystickValueX();
 	float ReturnJoystickValueY();
 

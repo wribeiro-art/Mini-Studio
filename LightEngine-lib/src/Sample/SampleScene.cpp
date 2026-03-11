@@ -63,7 +63,6 @@
 #include "PhysicalEntity.h"
 #include "StaticEntity.h"
 #include "Player.h"
-#include "PlayerController.h"
 #include "Controller.h"
 #include "Debug.h"
 
@@ -81,8 +80,8 @@ void SampleScene::OnInitialize()
     Wall->SetPosition(350.f, 400.f);
     Wall->SetTag(2);
 
-    //Manette
     Controller1 = new Controller(0);
+
 }
 
 void SampleScene::OnEvent(const sf::Event& event)
@@ -91,6 +90,7 @@ void SampleScene::OnEvent(const sf::Event& event)
 	//Activer/Desactiver le debug avec F1
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F1)
     {
+        std::cout << "Debug\n";
 		mDebug = !mDebug;
     }
 
@@ -164,6 +164,8 @@ void SampleScene::OnEvent(const sf::Event& event)
     
     if (mDebug)
     {
+        Controller1->ReturnPressedButton();
+  
 
         if (sf::Joystick::isButtonPressed(0, 6))
         {
@@ -176,15 +178,17 @@ void SampleScene::OnEvent(const sf::Event& event)
         }
     }
 
+
+}
+
+void SampleScene::OnUpdate()
+{
     if (sf::Joystick::isButtonPressed(0, 0) && Ball->GetPosition().y >= 500)//jump
     {
         Ball->ResetVelocity();
         Ball->ApplyImpulse(-500.f);
     }
-}
 
-void SampleScene::OnUpdate()
-{
 	if (sf::Joystick::isButtonPressed(0, 5))//Dash
 	{
 		if (mPsychicMode == false)
