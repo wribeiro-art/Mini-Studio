@@ -1,0 +1,232 @@
+#include "Entity.h"
+
+#include "GameManager.h"
+#include "Utils.h"
+#include "Debug.h"
+
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/CircleShape.hpp>
+
+void Entity::Initialize(float radius, const sf::Color& color)
+{
+	mDirection = sf::Vector2f(0.0f, 0.0f);
+
+	mShape.setOrigin(0.f, 0.f);
+	mShape.setRadius(radius);
+	mShape.setFillColor(color);
+	
+	mTarget.isSet = false;
+
+	sf::Vector2f pos = GetPosition(0.5f, 0.5f);
+	float size = radius * 2;
+	mCollider.Set(pos.x, pos.y, pos.x + size, pos.y + size);
+
+	OnInitialize();
+}
+
+void Entity::Repulse(Entity* other)
+{
+	int hit = GetCollisionFace(other);
+	if (hit == -1)
+		return;
+
+	sf::Vector2f pos = GetPosition(0.5f, 0.5f);
+
+	switch (hit)
+	{
+	case 0: 
+		pos.y = other->mCollider.GetYMin() - (mCollider.GetYMax() - mCollider.GetYMin());
+		break;
+	case 1: 
+		pos.x = other->mCollider.GetXMax(); break;
+	case 2: 
+		pos.y = other->mCollider.GetYMax(); break;
+	case 3: 
+		pos.x = other->mCollider.GetXMin() - (mCollider.GetXMax() - mCollider.GetXMin());
+		break;
+	}
+
+	SetPosition(pos.x, pos.y, 0.5f, 0.5f);
+}
+
+bool Entity::IsColliding(Entity* other) const
+{
+	return mCollider.IsColliding(mCollider, other->mCollider);
+}
+
+bool Entity::IsInside(float x, float y) const
+{
+	sf::Vector2f position = GetPosition(0.5f, 0.5f);
+
+	float dx = x - position.x;
+	float dy = y - position.y;
+
+	float radius = mShape.getRadius();
+
+	return (dx * dx + dy * dy) < (radius * radius);
+}
+
+void Entity::Destroy()
+{
+	mToDestroy = true;
+
+	OnDestroy();
+}
+
+void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
+{
+	float size = mShape.getRadius() * 2;
+
+	x -= size * ratioX;
+	y -= size * ratioY;
+
+	mShape.setPosition(x, y);
+	UpdateCollider();
+
+	//#TODO Optimise
+	if (mTarget.isSet) 
+	{
+		sf::Vector2f position = GetPosition(0.5f, 0.5f);
+		mTarget.distance = Utils::GetDistance(position.x, position.y, mTarget.position.x, mTarget.position.y);
+		GoToDirection(mTarget.position.x, mTarget.position.y);
+		mTarget.isSet = true;
+	}
+}
+
+sf::Vector2f Entity::GetPosition(float ratioX, float ratioY) const
+{
+	float size = mShape.getRadius() * 2;
+	sf::Vector2f position = mShape.getPosition();
+
+	position.x += size * ratioX;
+	position.y += size * ratioY;
+
+	return position;
+}
+
+bool Entity::GoToDirection(int x, int y, float speed)
+{
+	sf::Vector2f position = GetPosition(0.5f, 0.5f);
+	sf::Vector2f direction = sf::Vector2f(x - position.x, y - position.y);
+	
+	bool success = Utils::Normalize(direction);
+	if (success == false)
+		return false;
+
+	SetDirection(direction.x, direction.y, speed);
+
+	return true;
+}
+
+bool Entity::GoToPosition(int x, int y, float speed)
+{
+	if (GoToDirection(x, y, speed) == false)
+		return false;
+
+	sf::Vector2f position = GetPosition(0.5f, 0.5f);
+
+	mTarget.position = { x, y };
+	mTarget.distance = Utils::GetDistance(position.x, position.y, x, y);
+	mTarget.isSet = true;
+
+	return true;
+}
+
+void Entity::SetDirection(float x, float y, float speed)
+{
+	if (speed > 0)
+		mSpeed = speed;
+
+	mDirection = sf::Vector2f(x, y);
+	mTarget.isSet = false;
+}
+
+void Entity::Update()
+{
+	float dt = GetDeltaTime();
+	float distance = dt * mSpeed;
+	sf::Vector2f translation = distance * mDirection;
+	mShape.move(translation);
+
+	UpdateCollider();
+
+	if (mTarget.isSet) 
+	{
+		float x1 = GetPosition(0.5f, 0.5f).x;
+		float y1 = GetPosition(0.5f, 0.5f).y;
+
+		float x2 = x1 + mDirection.x * mTarget.distance;
+		float y2 = y1 + mDirection.y * mTarget.distance;
+
+		Debug::DrawLine(x1, y1, x2, y2, sf::Color::Cyan);
+
+		Debug::DrawCircle(mTarget.position.x, mTarget.position.y, 5.f, sf::Color::Magenta);
+
+		mTarget.distance -= distance;
+
+		if (mTarget.distance <= 0.f)
+		{
+			SetPosition(mTarget.position.x, mTarget.position.y, 0.5f, 0.5f);
+			mDirection = sf::Vector2f(0.f, 0.f);
+			mTarget.isSet = false;
+		}
+	}
+
+	OnUpdate();
+}
+
+Scene* Entity::GetScene() const
+{
+	return GameManager::Get()->GetScene();
+}
+
+float Entity::GetDeltaTime() const
+{
+	return GameManager::Get()->GetDeltaTime();
+}
+
+int Entity::GetCollisionFace(Entity* other) const
+{
+	float x1 = mCollider.GetXMin();
+	float x2 = mCollider.GetXMax();
+	float y1 = mCollider.GetYMin();
+	float y2 = mCollider.GetYMax();
+
+	float X1 = other->mCollider.GetXMin();
+	float X2 = other->mCollider.GetXMax();
+	float Y1 = other->mCollider.GetYMin();
+	float Y2 = other->mCollider.GetYMax();
+
+	float left = X2 - x1;
+	float right = x2 - X1;
+	float top = Y2 - y1;
+	float bottom = y2 - Y1;
+
+	float minX = std::min(left, right);
+	float minY = std::min(top, bottom);
+
+	if (minX < minY)
+	{
+		if (left > right)
+			return 3;
+		return 1;
+	}
+	else
+	{
+		if (top > bottom)
+			return 2;
+		return 0;
+	}
+
+	return -1;
+}
+
+void Entity::UpdateCollider()
+{
+	sf::Vector2f pos = mShape.getPosition();
+	float size = mShape.getRadius() * 2;
+
+	mCollider.Set(pos.x, pos.y, pos.x + size, pos.y + size);
+
+	Debug::DrawRectangle(pos.x, pos.y, size, size, sf::Color::Magenta);
+}
