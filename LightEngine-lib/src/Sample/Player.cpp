@@ -7,8 +7,8 @@ Player::Player()
 {
 	mSpeed = 0;
 	mMaxSpeed = 1000;
-	mAcceleration = 5000.f;
-	mDecceleration = 2000.f;
+	mAcceleration = 100.f;
+	mDecceleration = 75.f;
 
 	mMaxHealth = 10;
 	mHealth = mMaxHealth;
@@ -44,6 +44,12 @@ void Player::OnCollision(Entity* collidedWith)
 		std::cout << "eaoipfajf\n";
 	}
 
+}
+
+void Player::Dash(float DirX, float DirY)
+{
+	ResetVelocity();
+	ApplyImpulse(DirY, DirX);
 }
 
 void Player::TakeDamage(int damage)

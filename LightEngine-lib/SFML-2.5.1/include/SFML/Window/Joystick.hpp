@@ -53,6 +53,17 @@ public:
         AxisCount   = 8   ///< Maximum number of supported axes
     };
 
+	//Button 0	A
+	//Button 1	B
+	//Button 2	X
+	//Button 3	Y
+	//Button 4	LT
+	//Button 5	RT
+	//Button 6	Ctrl Gauche
+	//Button 7	Ctrl Droit
+	//Button 8	Stick Gauche
+	//Button 9	Stick Droit
+   
     ////////////////////////////////////////////////////////////
     /// \brief Axes supported by SFML joysticks
     ///
