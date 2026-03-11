@@ -2,19 +2,22 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
     <ItemGroup>
         <Filter Include="header">
-            <UniqueIdentifier>{999B027C-CCA6-4AA4-AEAE-83D23114B681}</UniqueIdentifier>
+            <UniqueIdentifier>{2808D3CC-5E90-4BED-A167-09D32F84BFC1}</UniqueIdentifier>
             <Extensions>h;hpp</Extensions>
         </Filter>
         <Filter Include="resource">
-            <UniqueIdentifier>{98BEA1AA-8E91-4401-9001-EEE4E47B38EF}</UniqueIdentifier>
+            <UniqueIdentifier>{79238B57-09CF-4E97-9B40-437F57F9177F}</UniqueIdentifier>
             <Extensions>hlsl;jpg;jpeg;png;wav;mp3;ico;dds;rc;obj</Extensions>
         </Filter>
         <Filter Include="source">
-            <UniqueIdentifier>{C5AE519B-F140-4C71-86DC-3E6450D0B304}</UniqueIdentifier>
+            <UniqueIdentifier>{C870A4FC-2C10-489D-AF38-A94F4D4F4E77}</UniqueIdentifier>
             <Extensions>cpp;c</Extensions>
         </Filter>
     </ItemGroup>
     <ItemGroup>
+        <ClCompile Include="..\..\..\src\LightEngine\AssetManager.cpp">
+            <Filter>source</Filter>
+        </ClCompile>
         <ClCompile Include="..\..\..\src\LightEngine\Debug.cpp">
             <Filter>source</Filter>
         </ClCompile>
@@ -36,6 +39,9 @@
         <ClCompile Include="..\..\..\src\LightEngine\Utils.cpp">
             <Filter>source</Filter>
         </ClCompile>
+        <ClInclude Include="..\..\..\src\LightEngine\AssetManager.h">
+            <Filter>header</Filter>
+        </ClInclude>
         <ClInclude Include="..\..\..\src\LightEngine\Debug.h">
             <Filter>header</Filter>
         </ClInclude>

@@ -127,7 +127,7 @@ void GameManager::FixedUpdate()
 	{
 		entity->FixedUpdate(FIXED_DT);
 	}
-
+	
 
 	//Collision
 	for (auto it1 = mEntities.begin(); it1 != mEntities.end(); ++it1)
@@ -173,6 +173,8 @@ void GameManager::Draw()
 	{
 		mpWindow->draw(*entity->GetShape());
 	}
+
+	mpScene->OnRender(*mpWindow);
 	
 	Debug::Get()->Draw(mpWindow);
 

@@ -4,6 +4,7 @@ class GameManager;
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 class Scene
 {
@@ -12,13 +13,14 @@ private:
 
 private:
 	void SetGameManager(GameManager* pGameManager) { mpGameManager = pGameManager; }
-	
+
 protected:
 	Scene() = default;
 
 	virtual void OnInitialize() = 0;
 	virtual void OnEvent(const sf::Event& event) = 0;
 	virtual void OnUpdate() = 0;
+	virtual void OnRender(sf::RenderWindow& window) {};
 
 public:
 	template<typename T>

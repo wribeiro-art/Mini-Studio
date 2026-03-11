@@ -12,7 +12,7 @@ T* Scene::CreateEntity(float radius, const sf::Color& color)
 	T* newEntity = new T();
 
 	Entity* entity = newEntity;
-	entity->Initialize(radius, color);
+	entity->InitializeCircle(radius, color);
 	
 	mpGameManager->mEntitiesToAdd.push_back(newEntity);
 

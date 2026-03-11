@@ -1,4 +1,6 @@
 #pragma once
+#include "AssetManager.h"
+
 
 #define FIXED_DT 0.01667f
 
@@ -9,6 +11,7 @@
 class Entity;
 class Scene;
 class Debug;
+class SampleScene;
 
 namespace sf
 {
@@ -26,6 +29,7 @@ class GameManager
 	sf::Font mFont;
 
 	Scene* mpScene;
+	AssetManager assetManager;
 
 	float mDeltaTime;
 	float mAccumulatedDt = 0.f;
@@ -47,7 +51,6 @@ private:
 
 	void SetDeltaTime(float deltaTime) { mDeltaTime = deltaTime; }
 
-	sf::RenderWindow* GetWindow() const { return mpWindow; }
 
 public:
 	~GameManager();
@@ -61,6 +64,7 @@ public:
 	float GetDeltaTime() const { return mDeltaTime; }
 	Scene* GetScene() const { return mpScene; }
 	sf::Font& GetFont() { return mFont; };
+	sf::RenderWindow* GetWindow() const { return mpWindow; }
 
 	friend Debug;
 	friend Scene;

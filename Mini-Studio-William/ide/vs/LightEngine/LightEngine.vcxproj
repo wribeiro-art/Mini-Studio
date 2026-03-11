@@ -13,7 +13,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{92B91C36-41E2-4764-9F72-2B3AA8130EB1}</ProjectGuid>
+    <ProjectGuid>{4E6005FE-6C6D-4DA7-A431-50D3E2B2CDAB}</ProjectGuid>
     <RootNamespace>LightEngine</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -25,7 +25,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Utility</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -94,6 +94,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\LightEngine\AssetManager.cpp" />
     <ClCompile Include="..\..\..\src\LightEngine\Debug.cpp" />
     <ClCompile Include="..\..\..\src\LightEngine\Entity.cpp" />
     <ClCompile Include="..\..\..\src\LightEngine\GameManager.cpp" />
@@ -103,6 +104,7 @@
     <ClCompile Include="..\..\..\src\LightEngine\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\LightEngine\AssetManager.h" />
     <ClInclude Include="..\..\..\src\LightEngine\Debug.h" />
     <ClInclude Include="..\..\..\src\LightEngine\Entity.h" />
     <ClInclude Include="..\..\..\src\LightEngine\GameManager.h" />

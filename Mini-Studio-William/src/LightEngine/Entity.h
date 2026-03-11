@@ -2,6 +2,7 @@
 
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 namespace sf 
 {
@@ -20,8 +21,15 @@ class Entity
 		bool isSet;
     };
 
+    struct RectCollider
+    {
+        float xMin, xMax;
+        float yMin, yMax;
+    };
+
 protected:
     sf::CircleShape mShape;
+    sf::RectangleShape mShapeRect;
     sf::Vector2f mDirection;
 	Target mTarget;
     float mSpeed = 0.f;
@@ -42,9 +50,11 @@ public:
 
     sf::Vector2f GetPosition(float ratioX = 0.5f, float ratioY = 0.5f) const;
 	sf::Shape* GetShape() { return &mShape; }
+    sf::Shape* GetShapeRect() { return &mShapeRect; }
 
 	bool IsTag(int tag) const { return mTag == tag; }
     bool IsColliding(Entity* other) const;
+    bool IsColliding(const RectCollider& c1, const RectCollider& c2) const;
 	bool IsInside(float x, float y) const;
 
     void Destroy();
@@ -72,7 +82,9 @@ protected:
     virtual void FixedUpdate(float Fix_DT) {};
 	
 private:
-	void Initialize(float radius, const sf::Color& color);
+	void InitializeCircle(float radius, const sf::Color& color);
+    void InitializeRect(float xMin, float xMax, float yMin, float yMax, const sf::Color& color);
+
 	void Repulse(Entity* other);
 
     friend class GameManager;

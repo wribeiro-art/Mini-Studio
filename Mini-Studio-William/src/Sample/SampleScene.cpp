@@ -63,6 +63,7 @@
 #include "PhysicalEntity.h"
 #include "StaticEntity.h"
 #include "Debug.h"
+#include "AssetManager.h"
 
 void SampleScene::OnInitialize()
 {
@@ -74,6 +75,9 @@ void SampleScene::OnInitialize()
     // Static
     Wall = CreateEntity<StaticEntity>(100.f, sf::Color::Blue);
     Wall->SetPosition(350.f, 400.f);
+
+    assetManager.LoadImage();
+    
 }
 
 void SampleScene::OnEvent(const sf::Event& event)
@@ -93,10 +97,18 @@ void SampleScene::OnEvent(const sf::Event& event)
             Wall->GetShape()->setFillColor(sf::Color::Blue);
 
     }
+    std::cout << FIXED_DT<<std::endl;
 }
 
 void SampleScene::OnUpdate()
 {
     Debug::DrawCircle(Ball->GetPosition().x, Ball->GetPosition().y, 10.f, sf::Color::Cyan);
     Debug::DrawRectangle(Ball->GetPosition().x, Ball->GetPosition().y, 100, 100, sf::Color::Cyan);
+}
+
+void SampleScene::OnRender(sf::RenderWindow& window)
+{
+    GameManager::Get()->GetWindow()->clear();
+    GameManager::Get()->GetWindow()->draw(assetManager.GetSprite());
+    window.draw(assetManager.GetSprite());
 }
