@@ -39,28 +39,42 @@ void PhysicalEntity::ApplyImpulse(const float y, const float x)
 
 void PhysicalEntity::Repulse(Entity* other)
 {
-	int hit = GetCollisionFace(other);
-	if (hit == -1)
-		return;
+    int hit = GetCollisionFace(other);
+    if (hit == -1)
+        return;
 
-	sf::Vector2f pos = GetPosition(0.5f, 0.5f);
+    Collider* col = GetCollider();
+    Collider* otherCol = other->GetCollider();
 
-	switch (hit)
-	{
-	case 0:
-		pos.y = other->GetCollider()->GetYMin() - (mCollider.GetYMax() - mCollider.GetYMin());
-		break;
-	case 1:
-		pos.x = other->GetCollider()->GetXMax(); break;
-	case 2:
-		pos.y = other->GetCollider()->GetYMax(); break;
-	case 3:
-		pos.x = other->GetCollider()->GetXMin() - (mCollider.GetXMax() - mCollider.GetXMin());
-		break;
-	}
+    float width = col->GetXMax() - col->GetXMin();
+    float height = col->GetYMax() - col->GetYMin();
 
-	SetPosition(pos.x, pos.y, 0.5f, 0.5f);
+    sf::Vector2f pos = GetPosition(0.5f, 0.5f);
+
+    switch (hit)
+    {
+    case 0: 
+        pos.y = otherCol->GetYMin() - height * 0.5f;
+        mVelocity.y = 0;
+        break;
+
+    case 1: 
+        pos.x = otherCol->GetXMax() + width * 0.5f;
+        mVelocity.x = 0;
+        break;
+
+    case 2: 
+        pos.y = otherCol->GetYMax() + height * 0.5f;
+        mVelocity.y = 0;
+        break;
+
+    case 3: 
+        pos.x = otherCol->GetXMin() - width * 0.5f;
+        mVelocity.x = 0;
+        break;
+    }
 }
+
 
 void PhysicalEntity::Update()
 {

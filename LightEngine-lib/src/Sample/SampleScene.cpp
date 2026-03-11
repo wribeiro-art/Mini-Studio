@@ -28,7 +28,7 @@ void SampleScene::OnInitialize()
 void SampleScene::OnEvent(const sf::Event& event)
 {
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space)
-        ball->ApplyImpulse(100.f, 0.0f);
+        ball->ApplyImpulse(-100.f, 0.0f);
 }
 
 void SampleScene::OnUpdate()

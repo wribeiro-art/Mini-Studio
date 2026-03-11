@@ -208,14 +208,14 @@ int Entity::GetCollisionFace(Entity* other) const
 	if (minX < minY)
 	{
 		if (left > right)
-			return 1;
-		return 3;
+			return 3;
+		return 1;
 	}
 	else
 	{
 		if (top > bottom)
-			return 0;
-		return 2;
+			return 2;
+		return 0;
 	}
 
 	return -1;
