@@ -1,5 +1,5 @@
 #include "PhysicalEntity.h"
-
+#include <iostream>
 void PhysicalEntity::SetGravityAcceleration(float gravity)
 {
     mGravityAcceleration = gravity;
@@ -56,7 +56,7 @@ void PhysicalEntity::Update()
 
     pos.x += mVelocity.x * dt;
     pos.y += mVelocity.y * dt;
-
+    
     SetPosition(pos.x, pos.y, 0.5f, 0.5f);
 
     Entity::Update();

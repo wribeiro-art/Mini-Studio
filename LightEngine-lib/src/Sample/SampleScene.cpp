@@ -66,6 +66,7 @@
 #include "PlayerController.h"
 #include "Controller.h"
 #include "Debug.h"
+#include <iostream>
 
 
 #include <iostream>
@@ -73,7 +74,7 @@ void SampleScene::OnInitialize()
 {
     // Physic
     Ball = CreateEntity<Player>(30.f, sf::Color::Red);
-    Ball->SetPosition(400.f, 100.f);
+    Ball->SetPosition(600.f, 450.f);
     Ball->SetTag(1);
 
     // Static
@@ -214,4 +215,37 @@ void SampleScene::OnUpdate()
     }
 
     Debug::DrawCircle(Ball->GetPosition().x, Ball->GetPosition().y, 10.f, sf::Color::Cyan);
+}
+
+
+float SampleScene::ReturnJoystickValueX()
+{
+    int value = sf::Joystick::getAxisPosition(0, sf::Joystick::X);
+
+    if (value <= 0 && value >= -10 || value >= 0 && value <= 10)
+        return 0.f;
+
+    return value / 100.f;
+}
+
+float SampleScene::ReturnJoystickValueY()
+{
+    int value = sf::Joystick::getAxisPosition(0, sf::Joystick::Y);
+
+    if (value <= 0 && value >= -10 || value >= 0 && value <= 10)
+        return 0.f;
+
+    return value / 100.f;
+}
+
+int SampleScene::GetButtonPressed()
+{
+    for (int i = 0; i < sf::Joystick::ButtonCount; ++i)
+    {
+        if (sf::Joystick::isButtonPressed(0, i))
+        {
+            return i;
+        }
+    }
+    return 31;
 }
