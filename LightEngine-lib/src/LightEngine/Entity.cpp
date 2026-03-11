@@ -17,44 +17,41 @@ void Entity::Initialize(float radius, const sf::Color& color)
 	
 	mTarget.isSet = false;
 
+	sf::Vector2f pos = GetPosition(0.5f, 0.5f);
+	float size = radius * 2;
+	mCollider.Set(pos.x, pos.y, pos.x + size, pos.y + size);
+
 	OnInitialize();
 }
 
-void Entity::Repulse(Entity* other) 
+void Entity::Repulse(Entity* other)
 {
-	sf::Vector2f distance = GetPosition(0.5f, 0.5f) - other->GetPosition(0.5f, 0.5f);
-	
-	float sqrLength = (distance.x * distance.x) + (distance.y * distance.y);
-	float length = std::sqrt(sqrLength);
+	int hit = GetCollisionFace(other);
+	if (hit == -1)
+		return;
 
-	float radius1 = mShape.getRadius();
-	float radius2 = other->mShape.getRadius();
+	sf::Vector2f pos = GetPosition(0.5f, 0.5f);
 
-	float overlap = (length - (radius1 + radius2)) * 0.5f;
+	switch (hit)
+	{
+	case 0: 
+		pos.y = other->mCollider.GetYMin() - (mCollider.GetYMax() - mCollider.GetYMin());
+		break;
+	case 1: 
+		pos.x = other->mCollider.GetXMax(); break;
+	case 2: 
+		pos.y = other->mCollider.GetYMax(); break;
+	case 3: 
+		pos.x = other->mCollider.GetXMin() - (mCollider.GetXMax() - mCollider.GetXMin());
+		break;
+	}
 
-	sf::Vector2f normal = distance / length;
-
-	sf::Vector2f translation = overlap * normal;
-
-	sf::Vector2f position1 = GetPosition(0.5f, 0.5f) - translation;
-	sf::Vector2f position2 = other->GetPosition(0.5f, 0.5f) + translation;
-
-	SetPosition(position1.x, position1.y, 0.5f, 0.5f);
-	other->SetPosition(position2.x, position2.y, 0.5f, 0.5f);
+	SetPosition(pos.x, pos.y, 0.5f, 0.5f);
 }
 
 bool Entity::IsColliding(Entity* other) const
 {
-	sf::Vector2f distance = GetPosition(0.5f, 0.5f) - other->GetPosition(0.5f, 0.5f);
-
-	float sqrLength = (distance.x * distance.x) + (distance.y * distance.y);
-
-	float radius1 = mShape.getRadius();
-	float radius2 = other->mShape.getRadius();
-
-	float sqrRadius = (radius1 + radius2) * (radius1 + radius2);
-
-	return sqrLength < sqrRadius;
+	return mCollider.IsColliding(mCollider, other->mCollider);
 }
 
 bool Entity::IsInside(float x, float y) const
@@ -84,6 +81,7 @@ void Entity::SetPosition(float x, float y, float ratioX, float ratioY)
 	y -= size * ratioY;
 
 	mShape.setPosition(x, y);
+	UpdateCollider();
 
 	//#TODO Optimise
 	if (mTarget.isSet) 
@@ -150,6 +148,8 @@ void Entity::Update()
 	sf::Vector2f translation = distance * mDirection;
 	mShape.move(translation);
 
+	UpdateCollider();
+
 	if (mTarget.isSet) 
 	{
 		float x1 = GetPosition(0.5f, 0.5f).x;
@@ -183,4 +183,50 @@ Scene* Entity::GetScene() const
 float Entity::GetDeltaTime() const
 {
 	return GameManager::Get()->GetDeltaTime();
+}
+
+int Entity::GetCollisionFace(Entity* other) const
+{
+	float x1 = mCollider.GetXMin();
+	float x2 = mCollider.GetXMax();
+	float y1 = mCollider.GetYMin();
+	float y2 = mCollider.GetYMax();
+
+	float X1 = other->mCollider.GetXMin();
+	float X2 = other->mCollider.GetXMax();
+	float Y1 = other->mCollider.GetYMin();
+	float Y2 = other->mCollider.GetYMax();
+
+	float left = X2 - x1;
+	float right = x2 - X1;
+	float top = Y2 - y1;
+	float bottom = y2 - Y1;
+
+	float minX = std::min(left, right);
+	float minY = std::min(top, bottom);
+
+	if (minX < minY)
+	{
+		if (left > right)
+			return 1;
+		return 3;
+	}
+	else
+	{
+		if (top > bottom)
+			return 0;
+		return 2;
+	}
+
+	return -1;
+}
+
+void Entity::UpdateCollider()
+{
+	sf::Vector2f pos = mShape.getPosition();
+	float size = mShape.getRadius() * 2;
+
+	mCollider.Set(pos.x, pos.y, pos.x + size, pos.y + size);
+
+	Debug::DrawRectangle(pos.x, pos.y, size, size, sf::Color::Magenta);
 }
