@@ -184,3 +184,49 @@ float Entity::GetDeltaTime() const
 {
 	return GameManager::Get()->GetDeltaTime();
 }
+
+int Entity::GetCollisionFace(Entity* other) const
+{
+	float x1 = mCollider.GetXMin();
+	float x2 = mCollider.GetXMax();
+	float y1 = mCollider.GetYMin();
+	float y2 = mCollider.GetYMax();
+
+	float X1 = other->mCollider.GetXMin();
+	float X2 = other->mCollider.GetXMax();
+	float Y1 = other->mCollider.GetYMin();
+	float Y2 = other->mCollider.GetYMax();
+
+	float left = X2 - x1;
+	float right = x2 - X1;
+	float top = Y2 - y1;
+	float bottom = y2 - Y1;
+
+	float minX = std::min(left, right);
+	float minY = std::min(top, bottom);
+
+	if (minX < minY)
+	{
+		if (left > right)
+			return 3;
+		return 1;
+	}
+	else
+	{
+		if (top > bottom)
+			return 2;
+		return 0;
+	}
+
+	return -1;
+}
+
+void Entity::UpdateCollider()
+{
+	sf::Vector2f pos = mShape.getPosition();
+	float size = mShape.getRadius() * 2;
+
+	mCollider.Set(pos.x, pos.y, pos.x + size, pos.y + size);
+
+	Debug::DrawRectangle(pos.x, pos.y, size, size, sf::Color::Magenta);
+}

@@ -35,8 +35,47 @@ void PhysicalEntity::ApplyImpulse(const sf::Vector2f& impulse)
 
 void PhysicalEntity::ApplyImpulse(const float y, const float x)
 {
-    ApplyImpulse({ x, y });
+	ApplyImpulse({ x, y });
 }
+
+void PhysicalEntity::Repulse(Entity* other)
+{
+    int hit = GetCollisionFace(other);
+    if (hit == -1)
+        return;
+
+    Collider* col = GetCollider();
+    Collider* otherCol = other->GetCollider();
+
+    float width = col->GetXMax() - col->GetXMin();
+    float height = col->GetYMax() - col->GetYMin();
+
+    sf::Vector2f pos = GetPosition(0.5f, 0.5f);
+
+    switch (hit)
+    {
+    case 0: 
+        pos.y = otherCol->GetYMin() - height * 0.5f;
+        mVelocity.y = 0;
+        break;
+
+    case 1: 
+        pos.x = otherCol->GetXMax() + width * 0.5f;
+        mVelocity.x = 0;
+        break;
+
+    case 2: 
+        pos.y = otherCol->GetYMax() + height * 0.5f;
+        mVelocity.y = 0;
+        break;
+
+    case 3: 
+        pos.x = otherCol->GetXMin() - width * 0.5f;
+        mVelocity.x = 0;
+        break;
+    }
+}
+
 
 void PhysicalEntity::Update()
 {
