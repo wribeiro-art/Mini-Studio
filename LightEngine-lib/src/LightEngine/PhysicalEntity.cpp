@@ -1,63 +1,49 @@
 #include "PhysicalEntity.h"
+#include <iostream>
+
+//void PhysicalEntity::Fall(float deltatime)
+//{
+//	mGravitySpeed += GravityAcceleration * deltatime;
+//	mPosition.y += mGravitySpeed * deltatime;
+//}
 
 void PhysicalEntity::SetGravityAcceleration(float gravity)
 {
-    mGravityAcceleration = gravity;
+	mGravityAcceleration = gravity;
 }
 
-void PhysicalEntity::SetFrictionAir(float frictionAir)
+void PhysicalEntity::SetGravitySpeed(float speed)
 {
-    mFrictionAir = frictionAir;
-}
-
-void PhysicalEntity::ResetVelocity()
-{
-    mVelocity = { 0, 0 };
-}
-
-
-void PhysicalEntity::EnableGravity()
-{
-    ResetVelocity();
-    mGravityOn = true;
-}
-
-void PhysicalEntity::DisableGravity()
-{
-    mGravityOn = false;
+	mGravitySpeed = speed;
 }
 
 void PhysicalEntity::ApplyImpulse(const sf::Vector2f& impulse)
 {
-    mVelocity.y += impulse.y;
-    mVelocity.x += impulse.x;
+	mGravitySpeed += impulse.y;  
+	mVelocity.x += impulse.x; // Pas nécessaire   
 }
 
 void PhysicalEntity::ApplyImpulse(const float y, const float x)
 {
-    ApplyImpulse({ x, y });
+	ApplyImpulse({ x, y });
 }
 
 void PhysicalEntity::Update()
 {
     float dt = GetDeltaTime();
 
-    if (mGravityOn == false)
-        return;
+   // std::cout << "x " << mVelocity.x << std::endl;
+  // std::cout << "y " << mGravitySpeed << std::endl;
 
-    mVelocity.y += mGravityAcceleration * dt;
-
-    // Friction air. TODO ajouter friction sol
-
-    mVelocity.x -= mVelocity.x * mFrictionAir * dt;
-    mVelocity.y -= mVelocity.y * mFrictionAir * dt;
+    mGravitySpeed += mGravityAcceleration * dt;
 
     sf::Vector2f pos = GetPosition(0.5f, 0.5f);
 
     pos.x += mVelocity.x * dt;
-    pos.y += mVelocity.y * dt;
-
+    pos.y += mGravitySpeed * dt;
+    
     SetPosition(pos.x, pos.y, 0.5f, 0.5f);
 
     Entity::Update();
+
 }
