@@ -3,8 +3,6 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
 
-#include "Collider.h"
-
 namespace sf 
 {
 	class Shape;
@@ -29,8 +27,7 @@ protected:
     float mSpeed = 0.f;
     bool mToDestroy = false;
     int mTag = -1;
-	bool mRigidBody = true;
-    Collider mCollider;
+	bool mRigidBody = false; // A déplacer ?
 
 public:
 	bool GoToDirection(int x, int y, float speed = -1.f);
@@ -40,12 +37,11 @@ public:
 	void SetSpeed(float speed) { mSpeed = speed; }
 	void SetTag(int tag) { mTag = tag; }
 	float GetRadius() const { return mShape.getRadius(); }
-	void SetRigidBody(bool isRigitBody) { mRigidBody = isRigitBody; } 
-	bool IsRigidBody() const { return mRigidBody; } 
+	void SetRigidBody(bool isRigitBody) { mRigidBody = isRigitBody; } // Idem ?
+	bool IsRigidBody() const { return mRigidBody; } // Idem ?
 
     sf::Vector2f GetPosition(float ratioX = 0.5f, float ratioY = 0.5f) const;
 	sf::Shape* GetShape() { return &mShape; }
-	Collider* GetCollider() { return &mCollider; }
 
 	bool IsTag(int tag) const { return mTag == tag; }
     bool IsColliding(Entity* other) const;
@@ -63,8 +59,6 @@ public:
     template<typename T>
     T* CreateEntity(float radius, const sf::Color& color);
 
-    int GetCollisionFace(Entity* other) const;
-
 protected:
     Entity() = default;
     ~Entity() = default;
@@ -75,12 +69,10 @@ protected:
 	virtual void OnDestroy() {};
     //virtual void Update(); Move dans protected
     virtual void Update();
-
-    void UpdateCollider();
 	
 private:
 	void Initialize(float radius, const sf::Color& color);
-	virtual void Repulse(Entity* other);
+	void Repulse(Entity* other);
 
     friend class GameManager;
     friend Scene;

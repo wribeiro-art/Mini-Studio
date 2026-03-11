@@ -22,6 +22,9 @@ public:
 	void OnCollision(Entity* collidedWith) override;
 	void SetSpeed(float speed) { mSpeed = speed; }
 
+	void Dash(float DirX, float DirY);
+	void Jump();
+
 	void TakeDamage(int damage);
 	void Heal(int heal);
 };
